@@ -6,8 +6,8 @@ const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 let db;
 
 const getMongoDB = async () => {
-  
-  const uri = "mongodb+srv://codemash:codemash@cluster0.8eri7zv.mongodb.net/?retryWrites=true&w=majority";
+
+  const uri = "mongodb://localhost";
   const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
   client.connect(err => {
     db = client.db("books");
@@ -40,7 +40,7 @@ app.post("/book", async (req, res) => {
   res.send(result).status(201);
 });
 
-app.delete("/book/:id", async (res, res) => {
+app.delete("/book/:id", async (req, res) => {
   let coll = await db.collection("books");
   let result = await coll.deleteOne({_id: ObjectId(req.params.id)});
   res.send(result).status(200);
