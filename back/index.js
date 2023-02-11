@@ -46,13 +46,13 @@ app.delete("/book/:id", async (req, res) => {
   res.send(result).status(200);
 });
 
-app.put("/book/:id", async (res, req) => {
+app.put("/book/:id", async (req, res) => {
   let coll = await db.collection("books");
-  let result = await coll.updateOne({_id: ObjectId(req.params.id)}, req.body);
+  let result = await coll.updateOne({_id: ObjectId(req.params.id)}, {$set: req.body});
   res.send(result).status(200);
 });
 
-app.get("/book/count", async (res, req) => {
+app.get("/book/count", async (req, res) => {
   let coll = await db.collection("books");
   let data = await coll.aggregate([
     {
